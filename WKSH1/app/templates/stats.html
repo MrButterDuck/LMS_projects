@@ -1,0 +1,4 @@
+{% extends "base.html" %} {% from "macros.html" import render_stat_table %} {% block title %}Статистика{% endblock %} {% block content %}
+Статистика высот
+макс / мин / среднее
+{{ render_stat_table("Типы зданий", by_type_head, by_type_body) }} {{ render_stat_table("По странам", by_country_head, by_country_body) }} {{ render_stat_table("По городам", by_city_head, by_city_body) }} {% endblock %} 

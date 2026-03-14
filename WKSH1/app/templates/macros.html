@@ -1,0 +1,29 @@
+{% macro render_table(head, body) %}
+<table>
+    <thead>
+        <tr>
+            {% for col in head %}
+            <th>{{ col }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in body %}
+        <tr>
+            {% for item in row %}
+            <td>{{ item if item is not none else '—' }}</td>
+            {% endfor %}
+        </tr>
+        {% else %}
+        <tr>
+            <td>Нет данных</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endmacro %}
+
+{% macro render_stat_table(title, head, body) %}
+<h2>{{ title }}</h2>
+{{ render_table(head, body) }}
+{% endmacro %}

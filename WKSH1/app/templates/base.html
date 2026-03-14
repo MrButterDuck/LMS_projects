@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+    <title>Высокие сооружения — {% block title %}{% endblock %}</title>
+</head>
+<body>
+ 
+<header class="site-header">
+    <div>
+        <div>
+            <h1>Самые высокие здания и сооружения</h1>
+        </div>
+        <nav>
+            <a href="{{ url_for('main.type_buildings') }}">
+                Типы
+            </a>
+            <a href="{{ url_for('main.countries') }}">
+                Страны
+            </a>
+            <a href="{{ url_for('main.cities') }}">
+                Города
+            </a>
+            <a href="{{ url_for('main.buildings') }}">
+                Сооружения
+            </a>
+            <a href="{{ url_for('main.stats') }}">
+                Статистика
+            </a>
+        </nav>
+    </div>
+</header>
+ 
+<main>
+    {% block content %}{% endblock %}
+</main> 
+</body>
+</html>

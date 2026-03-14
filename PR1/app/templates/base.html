@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Автомобили — {% block title %}{% endblock %}</title>
+</head>
+<body>
+ 
+<h1>База данных автомобилей</h1>
+ 
+<nav>
+    <a href="{{ url_for('main.makes') }}">Марки</a> |
+    <a href="{{ url_for('main.models') }}">Модели</a> |
+    <a href="{{ url_for('main.categories') }}">Категории</a> |
+    <a href="{{ url_for('main.market') }}">Рыночные категории</a> |
+    <a href="{{ url_for('main.transmissions') }}">Трансмиссии</a> |
+    <a href="{{ url_for('main.wheels') }}">Привод</a> |
+    <a href="{{ url_for('main.vehicles') }}">Типы кузова</a> |
+    <a href="{{ url_for('main.features') }}">Характеристики</a> |
+    <a href="{{ url_for('main.all_data') }}">Все данные</a> |
+    <a href="{{ url_for('main.queries') }}">Запросы</a>
+</nav>
+ 
+<hr>
+ 
+{% block content %}{% endblock %}
+ 
+</body>
+</html>

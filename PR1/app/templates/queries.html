@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% from "macros.html" import render_table %}
+ 
+{% block title %}Запросы{% endblock %}
+ 
+{% block content %}
+<h2>Запросы к базе данных</h2>
+ 
+<h3>{{ q1_title }}</h3>
+<p>{{ q1_desc }}</p>
+{{ render_table(q1_keys, q1_rows) }}
+ 
+<hr>
+ 
+<h3>{{ q2_title }}</h3>
+<p>{{ q2_desc }}</p>
+{{ render_table(q2_keys, q2_rows) }}
+ 
+<hr>
+ 
+<h3>{{ q3_title }}</h3>
+<p>{{ q3_desc }}</p>
+{{ render_table(q3_keys, q3_rows) }}
+ 
+<hr>
+ 
+<h3>{{ q4_title }}</h3>
+<p>{{ q4_desc }}</p>
+{{ render_table(q4_keys, q4_rows) }}
+ 
+<hr>
+ 
+<h3>{{ q5_title }}</h3>
+<p>{{ q5_desc }}</p>
+{{ render_table(q5_keys, q5_rows) }}
+ 
+{% endblock %}

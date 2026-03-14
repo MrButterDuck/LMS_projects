@@ -36,7 +36,7 @@ class Building(db.Model):
     type_building_id = db.Column(db.Integer, db.ForeignKey('type_building.id'))
     city_id = db.Column(db.Integer, db.ForeignKey('city.id'))
     year = db.Column(db.Integer)
-    height = db.Column(db.Integer)
+    height = db.Column(db.Float)
 
     def __init__(self, title, type_building_id, city_id, year, height):
         self.title = title
