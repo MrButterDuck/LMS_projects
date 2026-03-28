@@ -10,46 +10,73 @@ app = create_app()
 def load(filepath):
     with open(filepath, encoding='utf-8') as f:
         reader = csv.DictReader(f)
+
         for i, row in enumerate(reader):
             make = get_or_create(CarMake, name=row['Make'])
             model = get_or_create(CarModel, name=row['Model'], make_id=make.id)
             transmission = get_or_create(TransmissionTypes, name=row['Transmission Type'])
             driven_wheels = get_or_create(DrivenWheelsTypes, name=row['Driven_Wheels'])
             vehicle_type = get_or_create(VehicleTypes, name=row['Vehicle Style'])
- 
+
             doors_raw = row['Number of Doors'].strip()
             doors = int(float(doors_raw)) if doors_raw else None
- 
+
             hp_raw = row['Engine HP'].strip()
             hp = float(hp_raw) if hp_raw else None
- 
+
             cyl_raw = row['Engine Cylinders'].strip()
             cyl = int(float(cyl_raw)) if cyl_raw else None
- 
-            feature = CarFeatures(
+
+            year = int(row['Year'])
+
+            # --- CarFeatures (без дублей)
+            exists_feature = CarFeatures.query.filter_by(
                 model_id=model.id,
-                year=int(row['Year']),
+                year=year,
                 transmission_id=transmission.id,
                 driven_wheels_id=driven_wheels.id,
                 vehicle_type_id=vehicle_type.id,
                 number_of_doors=doors,
                 engine_cylinders=cyl,
                 engine_hp=hp,
-            )
-            create(feature)
- 
+            ).first()
+
+            if not exists_feature:
+                create(CarFeatures(
+                    model_id=model.id,
+                    year=year,
+                    transmission_id=transmission.id,
+                    driven_wheels_id=driven_wheels.id,
+                    vehicle_type_id=vehicle_type.id,
+                    number_of_doors=doors,
+                    engine_cylinders=cyl,
+                    engine_hp=hp,
+                ))
+
+            # --- MarketCategory (без дублей)
             categories_raw = row['Market Category'].strip()
             if categories_raw:
                 for cat_name in categories_raw.split(','):
                     cat_name = cat_name.strip()
-                    if cat_name:
-                        category = get_or_create(CategoryTypes, name=cat_name)
-                        mc = MarketCategory(category_id=category.id, model_id=model.id)
-                        create(mc)
- 
+                    if not cat_name:
+                        continue
+
+                    category = get_or_create(CategoryTypes, name=cat_name)
+
+                    exists_mc = MarketCategory.query.filter_by(
+                        category_id=category.id,
+                        model_id=model.id
+                    ).first()
+
+                    if not exists_mc:
+                        create(MarketCategory(
+                            category_id=category.id,
+                            model_id=model.id
+                        ))
+
             if i % 500 == 0:
                 print(f'Загружено строк: {i}')
- 
+
     print('Выполнено')
  
  

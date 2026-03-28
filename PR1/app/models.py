@@ -45,6 +45,7 @@ class CategoryTypes(db.Model):
 
 class MarketCategory(db.Model):
     __tablename__ = 'market_category'
+    __table_args__ = (db.UniqueConstraint('category_id', 'model_id'),)
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     category_id = db.Column(db.Integer, db.ForeignKey('category_types.id'))
     model_id = db.Column(db.Integer, db.ForeignKey('car_model.id'))
@@ -98,15 +99,16 @@ class VehicleTypes(db.Model):
 
 class CarFeatures(db.Model):
     __tablename__ = 'car_features'
+    __table_args__ = (db.UniqueConstraint('model_id', 'year', 'transmission_id', 'driven_wheels_id', 'vehicle_type_id', 'number_of_doors', 'engine_cylinders', 'engine_hp',),)
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     model_id = db.Column(db.Integer, db.ForeignKey('car_model.id'))
-    year = db.Column('Год', db.Integer)
+    year = db.Column('year', db.Integer)
     transmission_id = db.Column(db.Integer, db.ForeignKey('transmission_types.id'))
     driven_wheels_id = db.Column(db.Integer, db.ForeignKey('driven_wheels_types.id'))
     vehicle_type_id = db.Column(db.Integer, db.ForeignKey('vehicle_types.id'))
-    number_of_doors = db.Column('Количество дверей', db.Integer)
-    engine_cylinders = db.Column('Цилиндры двигателя', db.Integer)
-    engine_hp = db.Column('Мощность (HP)', db.Float)
+    number_of_doors = db.Column('number_of_doors', db.Integer)
+    engine_cylinders = db.Column('engine_cylinders', db.Integer)
+    engine_hp = db.Column('engine_hp', db.Float)
 
     def __init__(self, model_id, year, transmission_id, driven_wheels_id,
                  vehicle_type_id, number_of_doors, engine_cylinders, engine_hp):
