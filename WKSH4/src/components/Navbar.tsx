@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
+import MenuList from '@mui/material/MenuList';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { styled } from '@mui/material/styles';
@@ -87,6 +88,7 @@ function Navbar({ active }: ComponentProps) {
 
             <Drawer anchor="top" open={open} onClose={toggleDrawer(false)}>
               <Box>
+                <MenuList sx={{ p: 0 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                   <IconButton onClick={toggleDrawer(false)}>
                     <CloseRoundedIcon />
@@ -129,6 +131,7 @@ function Navbar({ active }: ComponentProps) {
                     Диаграммы
                   </MenuItem>
                 </Link>
+                </MenuList>
               </Box>
             </Drawer>
           </Box>

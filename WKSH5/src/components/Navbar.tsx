@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
+import MenuList from '@mui/material/MenuList';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
@@ -49,7 +50,6 @@ function Navbar({ active }: ComponentProps) {
           <Typography variant="h6" sx={{ color: '#5d8aa8' }}>
             Самые высокие здания и сооружения
           </Typography>
-
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Link to="/" style={{ textDecoration: 'none' }}>
               <Button
@@ -96,6 +96,7 @@ function Navbar({ active }: ComponentProps) {
 
             <Drawer anchor="top" open={open} onClose={toggleDrawer(false)}>
               <Box>
+                <MenuList sx={{ p: 0 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                   <IconButton onClick={toggleDrawer(false)}>
                     <CloseRoundedIcon />
@@ -150,6 +151,7 @@ function Navbar({ active }: ComponentProps) {
                     Проверь себя
                   </MenuItem>
                 </Link>
+                </MenuList>
               </Box>
             </Drawer>
           </Box>

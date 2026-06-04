@@ -48,8 +48,6 @@ function Navbar({ active }: ComponentProps) {
           <Typography variant="h6" sx={{ color: '#5d8aa8' }}>
             Самые высокие здания и сооружения
           </Typography>
-
-          {/* Desktop menu */}
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Button
               variant={active === '1' ? 'contained' : 'text'}
