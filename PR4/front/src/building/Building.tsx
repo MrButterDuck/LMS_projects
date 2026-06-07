@@ -14,7 +14,7 @@ function Building() {
   if (!item) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <Navbar active="" />
+        <Navbar active="1" />
         <div style={{ flex: 1 }}>
           <Container maxWidth="lg" sx={{ mt: '20px' }}>
             <Typography>Страница не найдена</Typography>
@@ -27,7 +27,7 @@ function Building() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <Navbar active="" />
+      <Navbar active="1" />
       <div style={{ flex: 1 }}>
         <Container maxWidth="lg" sx={{ mt: '20px' }}>
           <Breadcrumbs sx={{ mb: '16px' }}>

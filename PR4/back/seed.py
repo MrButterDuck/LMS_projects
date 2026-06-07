@@ -48,15 +48,15 @@ QUIZ_DATA = [
         ]
     },
     {
-        "title": "Отсортируйте марки по возрастанию года появления модели в датасете.",
-        "type": "S",
+        "title": "Выберите автомобили, выпущенные младше 2012 года.",
+        "type": "C",
         "tasks": [
             {"question": "BMW 1 Series M (2011)", "answer": "1", "order": 1},
-            {"question": "Audi A4 (2012)", "answer": "2", "order": 2},
-            {"question": "Mercedes-Benz C-Class (2013)", "answer": "3", "order": 3},
-            {"question": "Porsche 911 (2014)", "answer": "4", "order": 4},
-            {"question": "Tesla Model S (2017)", "answer": "5", "order": 5},
-            {"question": "Tesla Model 3 (2018)", "answer": "6", "order": 6}
+            {"question": "Audi A4 (2010)", "answer": "1", "order": 2},
+            {"question": "Mercedes-Benz C-Class (2013)", "answer": "0", "order": 3},
+            {"question": "Porsche 911 (2014)", "answer": "0", "order": 4},
+            {"question": "Tesla Model S (2017)", "answer": "0", "order": 5},
+            {"question": "Toyota Prius (2008)", "answer": "1", "order": 6}
         ]
     },
     {
@@ -90,6 +90,3 @@ with app.app_context():
                 db.session.add(task)
                 
         db.session.commit()
-        print("Таблицы quiz и quiz_task созданы и заполнены данными.")
-    else:
-        print("Таблица quiz уже содержит данные.")

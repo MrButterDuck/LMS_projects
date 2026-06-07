@@ -28,16 +28,16 @@ function Footer() {
         >
           <Box>
             <Typography variant="h6" sx={{ color: '#5d8aa8', mb: 1 }}>
-              Car Features & MSRP
+              Car делает врум-врум
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Каталог автомобилей с характеристиками и ценами
+              Характеристики авто
             </Typography>
           </Box>
         </Box>
         <Divider sx={{ mt: 3, mb: 2 }} />
         <Typography variant="body2" color="text.secondary" align="center">
-          {'© '}{new Date().getFullYear()}{' Автомобили и их характеристики. Все права защищены.'}
+          {'© '}{new Date().getFullYear()}{'Вы уверены, что ваши права защищены? Проверьте.'}
         </Typography>
       </Container>
     </Box>

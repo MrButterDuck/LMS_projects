@@ -5,9 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { resetLists } from './quizSlice';
 import { getQuizData } from '../../services/api';
-
-type tTasks = { question: string; answer: string; order: number }[];
-type tQuizzes = { id: number; type: "M" | "S"; title: string; tasks: tTasks }[];
+import { tQuizzes } from "../quizData";
 
 function Quiz() {
   const [quizzes, setQuizzes] = React.useState<tQuizzes>([]);
@@ -23,8 +21,16 @@ function Quiz() {
         const response = await getQuizData();
         if (response.success) {
           const formattedQuizzes = response.quizzes.map((q: any) => ({
-            ...q,
-            tasks: q.tasks.sort((a: any, b: any) => a.order - b.order)
+            id: q.id,
+            type: q.type as "M" | "S" | "C",
+            title: q.title,
+            tasks: q.tasks
+              .sort((a: any, b: any) => a.order - b.order)
+              .map((t: any) => ({
+                question: t.question,
+                answer: t.answer,
+                order: t.order
+              }))
           }));
           setQuizzes(formattedQuizzes);
         }
@@ -41,15 +47,28 @@ function Quiz() {
     const res = quizzes.map((item, index) => {
       const userAnswers = lists[index] || [];
       let correct = 0;
+
       if (item.type === "S") {
         const correctOrder = [...item.tasks]
           .sort((a, b) => Number(a.answer) - Number(b.answer))
           .map(t => t.question);
         correct = userAnswers.filter((q, i) => q === correctOrder[i]).length;
-      } else {
+      } 
+      else if (item.type === "C") {
+        const correctAnswers = item.tasks.filter(t => t.answer === "1").map(t => t.question);
+        const correctCount = userAnswers.filter(q => correctAnswers.includes(q)).length;
+        const incorrectCount = userAnswers.filter(q => !correctAnswers.includes(q)).length;
+        
+        if (correctCount === correctAnswers.length && incorrectCount === 0) {
+          return `Задание ${index + 1}. Все ответы верные.`;
+        }
+        return `Задание ${index + 1}. Верных ответов: ${correctCount} (выбрано лишних: ${incorrectCount}).`;
+      } 
+      else {
         const correctAnswers = item.tasks.map(t => t.answer);
         correct = correctAnswers.filter((ans, i) => ans === userAnswers[i]).length;
       }
+
       if (correct === item.tasks.length) {
         return `Задание ${index + 1}. Все ответы верные.`;
       }
@@ -85,12 +104,11 @@ function Quiz() {
             borderRadius: '12px',
             border: '2px solid',
             borderColor: 'primary.main',
-            boxShadow: `0 4px 8px rgba(0,0,0,0.1)`,
+            boxShadow: `0 4px 8px ${'primary.main'}`,
           }}
         >
           <Typography
-            variant="h5"
-            gutterBottom
+            variant="h5" gutterBottom
             sx={{
               fontWeight: 'bold',
               color: 'info.main',
@@ -109,17 +127,29 @@ function Quiz() {
         <Button
           variant="contained"
           onClick={handleCheck}
-          sx={{ px: 4, py: 1.5, fontWeight: 'bold', fontSize: '1.1rem' }}
-        >
-          Проверить
-        </Button>
+          sx={{
+            px: 4,
+            py: 1.5,
+            fontWeight: 'bold',
+            fontSize: '1.1rem',
+          }}
+        >Проверить</Button>
         <Button
-          variant="outlined"
+          variant="contained"
           onClick={handleReset}
-          sx={{ px: 4, py: 1.5, fontWeight: 'bold', fontSize: '1.1rem' }}
-        >
-          Начать снова
-        </Button>
+          sx={{
+            px: 4,
+            py: 1.5,
+            fontWeight: 'bold',
+            fontSize: '1.1rem',
+            borderColor: 'secondary.main',
+            color: 'secondary.main',
+            '&:hover': {
+              borderColor: 'primary.main',
+              color: 'primary.main',
+            },
+          }}
+        >Начать снова</Button>
       </Box>
       {results && (
         <Box
@@ -131,7 +161,7 @@ function Quiz() {
             borderRadius: '12px',
             border: '2px solid',
             borderColor: 'primary.main',
-            boxShadow: `0 4px 8px rgba(0,0,0,0.1)`,
+            boxShadow: `0 4px 8px ${'primary.main'}`,
           }}
         >
           <Typography variant="h5" gutterBottom>Результаты теста</Typography>

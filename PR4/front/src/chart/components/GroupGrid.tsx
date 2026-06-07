@@ -28,7 +28,7 @@ function GroupGrid({ data }: GroupProps) {
         localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
         rows={rows}
         columns={columns}
-        showToolbar={true}
+        showToolbar={false}
       />
     </Container>
   );

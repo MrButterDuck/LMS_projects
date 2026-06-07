@@ -92,7 +92,7 @@ function BuildingsGrid() {
     { field: 'make', headerName: 'Марка', flex: 1, minWidth: 100 },
     { field: 'model', headerName: 'Модель', flex: 1, minWidth: 120 },
     { field: 'year', headerName: 'Год', width: 80 },
-    { field: 'vehicle_type', headerName: 'Тип двигателя', flex: 1, minWidth: 100 },
+    { field: 'vehicle_type', headerName: 'Тип кузова', flex: 1, minWidth: 100 },
     { field: 'engine_hp', headerName: 'Мощность', width: 100 },
     { field: 'engine_cylinders', headerName: 'Цилиндры', width: 90 },
     { field: 'transmission', headerName: 'Коробка', flex: 1, minWidth: 110 },
